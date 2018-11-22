@@ -56,4 +56,4 @@ class Model(nn.Module):
         prediction = self.linear2(prediction)
 
         prediction = F.log_softmax(prediction, dim=2)
-        return prediction
+        return features, prediction

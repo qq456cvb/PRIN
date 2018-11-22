@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
         # print (data.shape)
         with torch.no_grad():
-            prediction = model(data, target_index, one_hot_labels)
+            _, prediction = model(data, target_index, one_hot_labels)
 
         prediction = prediction.view(-1, hyper.N_PTCLOUD, hyper.N_PARTS)
 
