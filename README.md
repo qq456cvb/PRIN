@@ -18,4 +18,4 @@ https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv
 MIT
 
 ## References
-
+Our paper is available on https://arxiv.org/abs/1811.09361.
