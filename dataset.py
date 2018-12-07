@@ -94,7 +94,6 @@ class MyDataset(torch.utils.data.Dataset):
         pts_s2[:, 1] = np.clip(pts_s2[:, 1], 0, 2 * b - 1) # [0, 2pi]
 
         # N * 3
-        # swap beta and h axes
         pts_so3 = np.stack([pts_norm * 2 - 1, pts_s2_float[:, 1] / (2 * b - 1) * 2 - 1, pts_s2_float[:, 0] / (2 * b - 1) * 2 - 1], axis=1)
         pts_so3 = np.clip(pts_so3, -1, 1)
 
