@@ -19,9 +19,9 @@ def rotmat(a, b, c, hom_coord=False):  # apply to mesh using mesh.apply_transfor
                          [0, 0, 0, 1]])
 
     def y(a):
-        return np.array([[np.cos(a), 0, np.sin(a), 0],
+        return np.array([[np.cos(a), 0, -np.sin(a), 0],
                          [0, 1, 0, 0],
-                         [-np.sin(a), 0, np.cos(a), 0],
+                         [np.sin(a), 0, np.cos(a), 0],
                          [0, 0, 0, 1]])
 
     r = z(a).dot(y(b)).dot(z(c))  # pylint: disable=E1101
