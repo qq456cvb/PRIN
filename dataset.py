@@ -71,9 +71,9 @@ class MyDataset(torch.utils.data.Dataset):
         pts = pts[sub_idx]
         if self.aug:
             rot = rnd_rot()
-            np.einsum('ij,nj->ni', rot, pts)
+            pts = np.einsum('ij,nj->ni', rot, pts)
             pts += np.random.rand(3)[None, :] * 0.05
-            np.einsum('ij,nj->ni', rot.T, pts)
+            pts = np.einsum('ij,nj->ni', rot.T, pts)
         segs = np.array(self.segs[index])
         segs = segs[sub_idx]
         labels = self.labels[index]
