@@ -22,8 +22,8 @@ Our paper is available on https://arxiv.org/abs/1811.09361.
 
 ## Citation
 @article{prin,  
-&emsp;title={PRIN: Pointwise Rotation-Invariant Network},  
->>author={Yang You and Yujing Lou and Qi Liu and Yu-Wing Tai and Weiming Wang and Lizhuang Ma and Cewu Lu},  
->>journal={arXiv preprint arXiv:1811.09361},  
->>year={2018}  
+&#9;title={PRIN: Pointwise Rotation-Invariant Network},  
+&#9;author={Yang You and Yujing Lou and Qi Liu and Yu-Wing Tai and Weiming Wang and Lizhuang Ma and Cewu Lu},  
+&#9;journal={arXiv preprint arXiv:1811.09361},  
+&#9;year={2018}  
 }
