@@ -3,6 +3,9 @@ import numpy as np
 import torch.utils.data
 from lie_learn.spaces import S2
 import hyper
+import sys
+sys.path.append('./src/build')
+from sampling import compute
 
 
 def rotmat(a, b, c, hom_coord=False):  # apply to mesh using mesh.apply_transform(rotmat(a,b,c, True))
@@ -67,7 +70,8 @@ class MyDataset(torch.utils.data.Dataset):
         pts = np.array(self.pts[index])
 
         # randomly sample points
-        sub_idx = np.random.randint(0, pts.shape[0],  hyper.N_PTCLOUD)
+        # sub_idx = np.random.randint(0, pts.shape[0],  hyper.N_PTCLOUD)
+        sub_idx = np.arange(hyper.N_PTCLOUD)
         pts = pts[sub_idx]
         if self.aug:
             rot = rnd_rot()
@@ -97,36 +101,7 @@ class MyDataset(torch.utils.data.Dataset):
         pts_so3 = np.stack([pts_norm * 2 - 1, pts_s2_float[:, 1] / (2 * b - 1) * 2 - 1, pts_s2_float[:, 0] / (2 * b - 1) * 2 - 1], axis=1)
         pts_so3 = np.clip(pts_so3, -1, 1)
 
-        # cache data
-        try:
-            if self.cache_dir is None:
-                raise FileNotFoundError
-            features = np.load(os.path.join(self.cache_dir, 'features%d.npy' % index))
-        except (OSError, FileNotFoundError):
-            features = []
-            interval = 1. / hyper.R_IN
-
-            dist = np.linalg.norm(pts, axis=1)
-
-            # adaptive sampling
-            wt = np.sin(np.pi * (2 * np.arange(2 * b) + 1) / 4 / b)
-
-            # TODO: rewrite this in an efficient way
-            for i in range(hyper.R_IN):
-                idx = (dist < (i + 2) * interval) & (dist > i * interval)
-                pts_idx = pts_s2[idx]
-                pts_idx_float = pts_s2_float[idx]
-                im = np.zeros([2 * b, 2 * b], np.float32)
-                for beta in range(2 * b):
-                    filt = (pts_idx[:, 0] == beta)
-                    for alpha in range(2 * b):
-                        filt_alpha = filt & (pts_idx_float[:, 1] > alpha - 1. / 2 / wt[beta]) & (pts_idx_float[:, 1] < alpha + 1. / 2 / wt[beta])
-                        if not np.any(filt_alpha):
-                            continue
-                        im[beta, alpha] = (1 - np.abs(dist[idx][filt_alpha] - (i + 1) * interval) / interval).sum() / np.count_nonzero(filt_alpha)
-                features.append(im)
-            features = np.stack(features, axis=0)
-            if self.cache_dir is not None:
-                np.save(os.path.join(self.cache_dir, 'features%d.npy' % index), features)
+        # one hundred times speed up !
+        features = np.asarray(compute(pts_s2_float, np.linalg.norm(pts, axis=1), hyper.R_IN, b, np.sin(np.pi * (2 * np.arange(2 * b) + 1) / 4 / b)))
 
         return features, pts_so3.astype(np.float32), segs.astype(np.int64), pts @ rand_rot, labels.astype(np.int64)
