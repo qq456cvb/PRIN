@@ -5,6 +5,7 @@
 This repository is the Pytorch implementation of PRIN (Pointwise Rotation-Invariant Network).
 ## Dependencies
 * Install s2cnn (https://github.com/jonas-koehler/s2cnn) and its dependencies (pytorch, cupy, lie_learn, pynvrtc).
+* Install pybind11 and compile the script under src (https://pybind11.readthedocs.io/)
 
 ## Dataset and pretrained weights
 * Download ShapeNet 17 Part Segmentation Dataset in h5py format from 
