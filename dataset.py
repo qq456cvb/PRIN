@@ -43,13 +43,12 @@ def rnd_rot():
 
 
 class MyDataset(torch.utils.data.Dataset):
-    def __init__(self, pts, labels, segs, rand_rot, aug, cache_dir=None):
+    def __init__(self, pts, labels, segs, rand_rot, aug):
         self.rand_rot = rand_rot
         self.aug = aug
         self.pts = pts
         self.labels = labels
         self.segs = segs
-        self.cache_dir = cache_dir
 
     def __len__(self):
         return len(self.pts)
@@ -70,8 +69,7 @@ class MyDataset(torch.utils.data.Dataset):
         pts = np.array(self.pts[index])
 
         # randomly sample points
-        # sub_idx = np.random.randint(0, pts.shape[0],  hyper.N_PTCLOUD)
-        sub_idx = np.arange(hyper.N_PTCLOUD)
+        sub_idx = np.random.randint(0, pts.shape[0],  hyper.N_PTCLOUD)
         pts = pts[sub_idx]
         if self.aug:
             rot = rnd_rot()
@@ -93,9 +91,6 @@ class MyDataset(torch.utils.data.Dataset):
         pts_s2[:, 1][pts_s2[:, 1] < 0] += 2 * b
 
         pts_s2_float = pts_s2
-        pts_s2 = (pts_s2 + 0.5).astype(np.int)
-        pts_s2[:, 0] = np.clip(pts_s2[:, 0], 0, 2 * b - 1)
-        pts_s2[:, 1] = np.clip(pts_s2[:, 1], 0, 2 * b - 1) # [0, 2pi]
 
         # N * 3
         pts_so3 = np.stack([pts_norm * 2 - 1, pts_s2_float[:, 1] / (2 * b - 1) * 2 - 1, pts_s2_float[:, 0] / (2 * b - 1) * 2 - 1], axis=1)
@@ -104,4 +99,4 @@ class MyDataset(torch.utils.data.Dataset):
         # one hundred times speed up !
         features = np.asarray(compute(pts_s2_float, np.linalg.norm(pts, axis=1), hyper.R_IN, b, np.sin(np.pi * (2 * np.arange(2 * b) + 1) / 4 / b)))
 
-        return features, pts_so3.astype(np.float32), segs.astype(np.int64), pts @ rand_rot, labels.astype(np.int64)
+        return features.astype(np.float32), pts_so3.astype(np.float32), segs.astype(np.int64), pts @ rand_rot, labels.astype(np.int64)

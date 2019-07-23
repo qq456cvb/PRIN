@@ -42,7 +42,7 @@ class BalancedSampler(Sampler):
         return len(self.dataset)
 
 
-def load_train_set(rand_rot=False, aug=True, cache_dir=None):
+def load_train_set(rand_rot=False, aug=True):
 
     # load data
     f0 = h5py.File(os.path.join(data_path, 'ply_data_train0.h5'))
@@ -67,7 +67,7 @@ def load_train_set(rand_rot=False, aug=True, cache_dir=None):
         ff.close()
 
     print(data.shape, label.shape, seg.shape)
-    return MyDataset(data, label, seg, rand_rot=rand_rot, aug=aug, cache_dir=cache_dir)
+    return MyDataset(data, label, seg, rand_rot=rand_rot, aug=aug)
 
 
 def main(log_dir, model_path, batch_size, resume, num_workers):
@@ -102,11 +102,7 @@ def main(log_dir, model_path, batch_size, resume, num_workers):
     logger.info("{} paramerters in total".format(sum(x.numel() for x in model.parameters())))
     bw = model.bandwidths[0]
 
-    # load data
-    cache_dir = os.path.join(log_dir, 'cache')
-    if not os.path.isdir(cache_dir):
-        os.mkdir(cache_dir)
-    train_set = load_train_set(False, True, cache_dir)
+    train_set = load_train_set(False, True)
     test_set = load_test_set(True)
 
     sampler = BatchSampler(BalancedSampler(train_set), batch_size, False)
