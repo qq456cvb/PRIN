@@ -2,7 +2,7 @@
 ## Pointwise Rotation-Invariant Network in PyTorch
 
 ## Overview
-This repository is the Pytorch implementation of PRIN (Pointwise Rotation-Invariant Network).
+This repository is the Pytorch implementation of [PRIN (Pointwise Rotation-Invariant Network)](https://arxiv.org/pdf/1811.09361.pdf).
 ## Dependencies
 * Install s2cnn (https://github.com/jonas-koehler/s2cnn) and its dependencies (pytorch, cupy, lie_learn, pynvrtc).
 * Install pybind11 and compile the script under src (https://pybind11.readthedocs.io/)
