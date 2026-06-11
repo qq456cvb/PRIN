@@ -1,6 +1,16 @@
 # PRIN
 ## Pointwise Rotation-Invariant Network in PyTorch
 
+<!-- README refined by Cursor -->
+
+## Data and Artifact Mirrors
+
+No verified Hugging Face mirror is available yet for the artifacts below; use the original sources until a complete mirror is uploaded.
+
+Original, external, or pending sources:
+- Pretrained weights: [https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv](https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
+- ShapeNet 17 part segmentation data: [https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing](https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing). third-party ShapeNet-derived dataset; kept as external source
+
 # News
 An improved version of PRIN (SPRIN) is released [here](https://github.com/qq456cvb/SPRIN) and described in [PRIN/SPRIN: On Extracting Point-wise Rotation Invariant Features](https://arxiv.org/abs/2102.12093), which achieves much better results.
 
