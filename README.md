@@ -1,46 +1,49 @@
-# PRIN
-## Pointwise Rotation-Invariant Network in PyTorch
+# PRIN: Pointwise Rotation-Invariant Network (AAAI 2020)
 
-<!-- README refined by Cursor -->
+PyTorch implementation of [Pointwise Rotation-Invariant Network with Adaptive Sampling and 3D Spherical Voxel Convolution (AAAI 2020)](https://ojs.aaai.org/index.php/AAAI/article/view/6965).
 
-## Data and Artifact Mirrors
+PRIN learns **point-wise, rotation-invariant features** for 3D point clouds: input points are converted to spherical voxels with density-aware adaptive sampling, processed with 3D spherical voxel convolutions (built on [s2cnn](https://github.com/jonas-koehler/s2cnn)), and mapped back to per-point features — so part segmentation works on arbitrarily rotated shapes without rotation augmentation.
 
-No verified Hugging Face mirror is available yet for the artifacts below; use the original sources until a complete mirror is uploaded.
+> **News:** an improved version, **SPRIN**, achieves much better results and is released at [qq456cvb/SPRIN](https://github.com/qq456cvb/SPRIN). It is described in [PRIN/SPRIN: On Extracting Point-wise Rotation Invariant Features (IEEE TPAMI)](https://arxiv.org/abs/2102.12093).
 
-Original, external, or pending sources:
-- Pretrained weights: [https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv](https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
-- ShapeNet 17 part segmentation data: [https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing](https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing). third-party ShapeNet-derived dataset; kept as external source
-
-# News
-An improved version of PRIN (SPRIN) is released [here](https://github.com/qq456cvb/SPRIN) and described in [PRIN/SPRIN: On Extracting Point-wise Rotation Invariant Features](https://arxiv.org/abs/2102.12093), which achieves much better results.
-
-## Overview
-This repository is the Pytorch implementation of [PRIN (Pointwise Rotation-Invariant Network)](https://arxiv.org/pdf/1811.09361.pdf).
 ## Dependencies
-* Install s2cnn (https://github.com/jonas-koehler/s2cnn) and its dependencies (pytorch, cupy, lie_learn, pynvrtc).
-* Install pybind11 and compile the script under src (https://pybind11.readthedocs.io/)
 
-## Dataset and pretrained weights
-* Download ShapeNet 17 Part Segmentation Dataset in h5py format from 
-https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing
-* Download pretrained weights (trained on unrotated shapes) from
-https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv
+- [s2cnn](https://github.com/jonas-koehler/s2cnn) and its dependencies (PyTorch, cupy, lie_learn, pynvrtc).
+- [pybind11](https://pybind11.readthedocs.io/): compile the sampling extension under `src/` with CMake.
+
+## Dataset and Pretrained Weights
+
+- Download the ShapeNet 17-category part segmentation dataset (h5py format) from [Google Drive](https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing) and extract it to `./hdf5_data`.
+- Download the pretrained weights (trained on unrotated shapes) from [Google Drive](https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv).
+
 ## Usage
-* For training, run "python train.py --log_dir log --model_path ./model.py --num_workers 4"
-* For testing, run "python test.py --weight_path ./state.pkl --model_path ./model.py --num_workers 4"
+
+Train:
+
+```bash
+python train.py --log_dir log --model_path ./model.py --num_workers 4
+```
+
+Test with pretrained weights:
+
+```bash
+python test.py --weight_path ./state.pkl --model_path ./model.py --num_workers 4
+```
+
 ## License
+
 MIT
 
-## References
-Our paper is available on https://arxiv.org/abs/1811.09361.
-
 ## Citation
-@inproceedings{you2020pointwise,  
-&emsp;&emsp;title={Pointwise rotation-invariant network with adaptive sampling and 3d spherical voxel convolution},  
-&emsp;&emsp;author={You, Yang and Lou, Yujing and Liu, Qi and Tai, Yu-Wing and Ma, Lizhuang and Lu, Cewu and Wang, Weiming},  
-&emsp;&emsp;booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},  
-&emsp;&emsp;volume={34},  
-&emsp;&emsp;number={07},  
-&emsp;&emsp;pages={12717--12724},  
-&emsp;&emsp;year={2020}  
+
+```bibtex
+@inproceedings{you2020pointwise,
+  title={Pointwise Rotation-Invariant Network with Adaptive Sampling and 3D Spherical Voxel Convolution},
+  author={You, Yang and Lou, Yujing and Liu, Qi and Tai, Yu-Wing and Ma, Lizhuang and Lu, Cewu and Wang, Weiming},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={34},
+  number={07},
+  pages={12717--12724},
+  year={2020}
 }
+```
