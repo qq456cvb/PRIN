@@ -14,7 +14,11 @@ PRIN learns **point-wise, rotation-invariant features** for 3D point clouds: inp
 ## Dataset and Pretrained Weights
 
 - Download the ShapeNet 17-category part segmentation dataset (h5py format) from [Google Drive](https://drive.google.com/drive/folders/1wC-DpeRtxuuEvffubWdhwoGXGeW052Vy?usp=sharing) and extract it to `./hdf5_data`.
-- Download the pretrained weights (trained on unrotated shapes) from [Google Drive](https://drive.google.com/open?id=1QnFqQdWmx0cYtYeN9tJNlf-E5ZLawRBv).
+- Download the pretrained weights (trained on unrotated shapes) from [Hugging Face](https://huggingface.co/qq456cvb/PRIN):
+
+```bash
+hf download qq456cvb/PRIN state.pkl --local-dir .
+```
 
 ## Usage
 
