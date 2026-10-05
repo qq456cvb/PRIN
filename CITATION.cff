@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use this code or data in your research, please cite the paper below."
+title: "Pointwise Rotation-Invariant Network with Adaptive Sampling and 3D Spherical Voxel Convolution"
+authors:
+  - family-names: "You"
+    given-names: "Yang"
+    orcid: "https://orcid.org/0000-0003-0125-0792"
+  - family-names: "Lou"
+    given-names: "Yujing"
+  - family-names: "Liu"
+    given-names: "Qi"
+  - family-names: "Tai"
+    given-names: "Yu-Wing"
+  - family-names: "Ma"
+    given-names: "Lizhuang"
+  - family-names: "Lu"
+    given-names: "Cewu"
+  - family-names: "Wang"
+    given-names: "Weiming"
+repository-code: "https://github.com/qq456cvb/PRIN"
+preferred-citation:
+  type: conference-paper
+  title: "Pointwise Rotation-Invariant Network with Adaptive Sampling and 3D Spherical Voxel Convolution"
+  authors:
+    - family-names: "You"
+      given-names: "Yang"
+      orcid: "https://orcid.org/0000-0003-0125-0792"
+    - family-names: "Lou"
+      given-names: "Yujing"
+    - family-names: "Liu"
+      given-names: "Qi"
+    - family-names: "Tai"
+      given-names: "Yu-Wing"
+    - family-names: "Ma"
+      given-names: "Lizhuang"
+    - family-names: "Lu"
+      given-names: "Cewu"
+    - family-names: "Wang"
+      given-names: "Weiming"
+  collection-title: "Proceedings of the AAAI Conference on Artificial Intelligence"
+  conference:
+    name: "AAAI 2020"
+  year: 2020
+  volume: 34
+  issue: "07"
+  start: 12717
+  end: 12724
+  url: "https://arxiv.org/abs/1811.09361"
+  identifiers:
+    - type: other
+      value: "arXiv:1811.09361"
+      description: "arXiv preprint"
